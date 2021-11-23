@@ -1,9 +1,16 @@
 import requests
 import json
+from Bot import conf
 from getTitle import giveTitle
 import os
 url = "https://api.notion.com/v1/pages"
-database = os.environ["DATABASE_TOKEN"]
+database = conf.DATABASE
+
+def createDatabaseScheme():
+    # connect to notion, get the headers and types for this database.
+    # Then check whether the given fields match somewhat into that scheme.
+    pass
+
 
 
 def addData(url, contributor, tag=[{"name": "misc", "color": "default"}]):
@@ -146,7 +153,7 @@ def addGenericFile(url, contributor, title, tag=[{"name": "misc", "color": "defa
 
 def sendData(payload):
     headers = {
-        'Authorization': os.environ["AUTH_KEY"],
+        'Authorization': conf.NOTION_AUTH,
         'Notion-Version': '2021-05-13',
         'Content-Type': 'application/json'
     }

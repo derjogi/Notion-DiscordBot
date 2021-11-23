@@ -1,26 +1,19 @@
 import requests
 import json
 import os
+import conf
 
-database = os.environ["DATABASE_TOKEN"]
-print(database)
-url = "https://api.notion.com/v1/databases/" + str(database) + "/query"
+url = "https://api.notion.com/v1/databases/" + str(conf.DATABASE) + "/query"
 
-def doesItExist(link):
-  payload = json.dumps({
-    "filter": {
-      "property": "URL",
-      "url":{
-        "equals": link
-      }
-    }
-  })
+def doesEntryExist(link):
+
   headers = {
-    'Authorization': str(os.environ["AUTH_KEY"]),
+    'Authorization': conf.NOTION_AUTH,
     'Notion-Version': '2021-05-13',
     'Content-Type': 'application/json'
   }
-  response = requests.post(url, headers=headers, data=payload)
+  response = requests.post(url, headers=headers)
+  response.raise_for_status()   # just in case we have 404 or so
   result = response.json()["results"]
   if(len(result) == 0):
     return False

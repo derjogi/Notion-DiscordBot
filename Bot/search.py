@@ -2,6 +2,8 @@ import os
 import json
 import requests
 
+from Bot import conf
+
 
 class SearchObject:
     # Class for Search Results
@@ -18,14 +20,14 @@ class SearchObject:
 def searchTag(args):
     # Search for a tag
     url = "https://api.notion.com/v1/databases/" + \
-        os.environ['DATABASE_TOKEN'] + "/query"
+        conf.DATABASE + "/query"
     payload = json.dumps({
         "filter": {
             "and": args
         }
     })
     headers = {
-        'Authorization': os.environ["AUTH_KEY"],
+        'Authorization': conf.NOTION_AUTH,
         'Notion-Version': '2021-05-13',
         'Content-Type': 'application/json'
     }

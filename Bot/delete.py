@@ -1,6 +1,8 @@
 import requests
 import json
 import os
+
+from Bot import conf
 from deleteGoogleDrive import delete_file
 
 payload = json.dumps({
@@ -39,7 +41,7 @@ payload = json.dumps({
 })
 
 headers = {
-    'Authorization': os.environ["AUTH_KEY"],
+    'Authorization': conf.NOTION_AUTH,
     'Notion-Version': '2021-05-13',
     'Content-Type': 'application/json'
 }
